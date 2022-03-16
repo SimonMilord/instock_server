@@ -6,9 +6,8 @@ const PORT = process.env.PORT;
 router.get("/:id/inventory", (req, res) => {
     fs.readFile('./data/inventories.json', 'utf8', (err, data) => {
         if (err) {
-            res.send('error reading getting data');
+            res.send('error getting data');
         } else { 
-            const ID = '2922c286-16cd-4d43-ab98-c79f698aeab0'
             const inventory = JSON.parse(data)
             const foundInv = inventory.find(inv => inv.warehouseID === req.params.id);
             if(foundInv) {
@@ -35,7 +34,7 @@ router.get("/:id/inventory", (req, res) => {
 router.get("/:id", (req, res) => {
     fs.readFile('./data/warehouses.json', 'utf8', (err, data) => {
         const warehouseData = JSON.parse(data)
-        const foundWarehouse = warehouseData.find( warehouse => warehouse.id === req.params.id);
+        const foundWarehouse = warehouseData.find(warehouse => warehouse.id === req.params.id);
         if(foundWarehouse) {
             res.json(foundWarehouse)
         } else {
