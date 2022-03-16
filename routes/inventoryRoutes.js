@@ -20,4 +20,14 @@ router.get("/:id", (req, res) => {
   });
 });
 
+router.get('', (req, res) => {
+    fs.readFile("./data/inventories.json", "utf8", (err, data) => {
+        if (err) {
+            res.send('error getting data');
+        } else {
+            const inventoryTotal = JSON.parse(data);
+            res.json(inventoryTotal);
+        }
+    })
+});
 module.exports = router;
