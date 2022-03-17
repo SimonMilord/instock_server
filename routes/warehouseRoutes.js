@@ -3,11 +3,27 @@ const router = express.Router();
 const fs = require("fs");
 const PORT = process.env.PORT;
 
+// GET list of all warehouses
+router.get("/", (req, res) => {
+  fs.readFile('./data/warehouses.json', 'utf8', (err, data) => {
+    if (err) {
+      res.send('error reading getting data');
+    } else {
+      const warehouseData = JSON.parse(data);
+      if (warehouseData) {
+        res.json(warehouseData);
+      } else {
+        return res.status(404).send({message: 'Could not find list of warehouses'});
+      }
+    }
+  })
+})
+
 router.get("/:id/inventory", (req, res) => {
     fs.readFile('./data/inventories.json', 'utf8', (err, data) => {
         if (err) {
             res.send('error reading getting data');
-        } else { 
+        } else {
             const ID = '2922c286-16cd-4d43-ab98-c79f698aeab0'
             const inventory = JSON.parse(data)
             const foundInv = inventory.find(inv => inv.warehouseID === req.params.id);
