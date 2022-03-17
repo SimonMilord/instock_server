@@ -3,6 +3,7 @@ const router = express.Router();
 const fs = require("fs");
 const PORT = process.env.PORT;
 
+// GET list of all warehouses
 router.get("/", (req, res) => {
   fs.readFile('./data/warehouses.json', 'utf8', (err, data) => {
     if (err) {
