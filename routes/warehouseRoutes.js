@@ -62,4 +62,9 @@ router.get("/:id", (req, res) => {
     })
 })
 
+// DELETE request for a warehouse
+// router.delete()
+
+
+
 module.exports = router;

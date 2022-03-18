@@ -4,8 +4,6 @@ const fs = require("fs");
 const PORT = process.env.PORT;
 
 
-
-
 router.get('', (req, res) => {
   fs.readFile('./data/inventories.json', 'utf8', (err, data) => {
       const inventoryData = JSON.parse(data);
@@ -14,7 +12,7 @@ router.get('', (req, res) => {
 });
 
 
-// get single inventry item
+// get single inventory item
 router.get("/:id", (req, res) => {
   fs.readFile("./data/inventories.json", "utf8", (err, data) => {
     const inventoryData = JSON.parse(data);
@@ -31,4 +29,8 @@ router.get("/:id", (req, res) => {
   });
 });
 
+router.delete('/:id', (req, res) => {
+
+  // res.send("delete request for inventory item");
+})
 module.exports = router;
