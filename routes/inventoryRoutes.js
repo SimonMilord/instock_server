@@ -5,6 +5,7 @@ const PORT = process.env.PORT;
 
 
 
+
 router.get('', (req, res) => {
   fs.readFile('./data/inventories.json', 'utf8', (err, data) => {
       const inventoryData = JSON.parse(data);
@@ -30,6 +31,7 @@ router.get("/:id", (req, res) => {
   });
 });
 
+
 //DELETE inventory item by ID
 router.delete('/:id/delete', (req, res) => {
   fs.readFile("./data/inventories.json", "utf8", (err, data) => {
@@ -42,6 +44,7 @@ router.delete('/:id/delete', (req, res) => {
       return
     }
     res.send("deleted")})
+
   })
 })
 
