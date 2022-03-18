@@ -62,6 +62,20 @@ router.get("/:id", (req, res) => {
     })
 })
 
+//DELETE warehouse by ID
+router.delete('/:id/delete', (req, res) => {
+    fs.readFile("./data/warehouses.json", "utf8", (err, data) => {
+    const warehouseData = JSON.parse(data);
+    const warehouseInQuestion = req.params.id
+    const newWarehouseData = warehouseData.filter(item =>  item.id !== warehouseInQuestion)
+    fs.writeFile("./data/warehouses.json", JSON.stringify(newWarehouseData), (err) => {
+        if (err) {
+            console.error(err)
+            return
+        }
+        res.send("deleted")})
+    })
+  })
 
 
 module.exports = router;
