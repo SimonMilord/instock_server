@@ -7,7 +7,7 @@ const PORT = process.env.PORT;
 router.get("/", (req, res) => {
   fs.readFile('./data/warehouses.json', 'utf8', (err, data) => {
     if (err) {
-      res.send('error reading getting data');
+      res.send('error getting data');
     } else {
       const warehouseData = JSON.parse(data);
       if (warehouseData) {
@@ -75,6 +75,15 @@ router.delete('/:id/delete', (req, res) => {
         }
         res.send("deleted")})
     })
-  })
+})
 
+router.post('/', (req, res) => {
+    fs.readFile("./data/warehouses.json", "utf8", (err, data) => {
+        if(err) {
+            res.send("")
+        } else{
+
+        }
+    }) 
+})
 module.exports = router;

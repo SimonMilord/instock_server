@@ -48,4 +48,22 @@ router.delete('/:id/delete', (req, res) => {
   })
 })
 
+router.patch('/:id/edit', (req, res) =>{
+  fs.readFile("./data/inventories.json", "utf8", (err, data) => {
+    if(err) {
+      res.send("inventory item does not exist")
+    } else {
+      const inventoryData = JSON.parse(data);
+      const updatedInventory = inventoryData.filter(item =>  item.id !== req.params.id);
+      const updatedItem = req.body;
+      updatedInventory.push(updatedItem);
+      fs.writeFile("./data/inventories.json", JSON.stringify(updatedInventory), (err) => {
+        if (err) {
+          res.send("error updating item ")
+        } 
+        res.send("item updated")
+      })
+    }
+  })
+})
 module.exports = router;
