@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const fs = require("fs");
 const PORT = process.env.PORT;
+const { v4: uuidv4 } = require('uuid');
 
 // GET list of all warehouses
 router.get("/", (req, res) => {
@@ -22,14 +23,9 @@ router.get("/", (req, res) => {
 router.get("/:id/inventory", (req, res) => {
     fs.readFile('./data/inventories.json', 'utf8', (err, data) => {
         if (err) {
-<<<<<<< HEAD
             res.send('error getting data');
-        } else { 
-=======
-            res.send('error reading getting data');
         } else {
             const ID = '2922c286-16cd-4d43-ab98-c79f698aeab0'
->>>>>>> develop
             const inventory = JSON.parse(data)
             const foundInv = inventory.find(inv => inv.warehouseID === req.params.id);
             if(foundInv) {
@@ -85,9 +81,20 @@ router.delete('/:id/delete', (req, res) => {
 router.post('/', (req, res) => {
     fs.readFile("./data/warehouses.json", "utf8", (err, data) => {
         if(err) {
-            res.send("")
+            res.send("error reading data");
         } else{
-
+            const allWarehouses = JSON.parse(data);
+            const newWarehouse = {
+                ...req.body,
+            }
+            allWarehouses.push(newWarehouse);
+            fs.writeFile('./data/warehouses.json', JSON.stringify(allWarehouses), (err) => {
+                if(err) {
+                    res.send("error writing data");
+                } else {
+                    res.json({ message: 'data written to file', data: newWarehouse});
+                }
+            })
         }
     }) 
 })
