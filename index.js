@@ -13,7 +13,7 @@ app.use(express.json());
 app.use(express.static('public'));
 app.use(cors());
 app.use('/inventory', inventoryRoutes);
-app.use('/warehouse', warehouseRoutes);
+app.use('/warehouses', warehouseRoutes);
 
 app.listen(PORT, () => {
     console.log(`Hello! My server is listening on ${PORT}`);
