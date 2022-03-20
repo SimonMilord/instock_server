@@ -19,7 +19,7 @@ router.get("/", (req, res) => {
     }
   })
 })
-
+// GET request to get the inventory of a specific warehouse
 router.get("/:id/inventory", (req, res) => {
     fs.readFile('./data/inventories.json', 'utf8', (err, data) => {
         if (err) {
@@ -48,7 +48,7 @@ router.get("/:id/inventory", (req, res) => {
         }
     })
 })
-
+// GET request to get a warehouse by an ID
 router.get("/:id", (req, res) => {
     fs.readFile('./data/warehouses.json', 'utf8', (err, data) => {
         const warehouseData = JSON.parse(data)
@@ -78,6 +78,7 @@ router.delete('/:id/delete', (req, res) => {
     })
 })
 
+// POST request to add new warehouse
 router.post('/', (req, res) => {
     fs.readFile("./data/warehouses.json", "utf8", (err, data) => {
         if(err) {
@@ -86,6 +87,7 @@ router.post('/', (req, res) => {
             const allWarehouses = JSON.parse(data);
             const newWarehouse = {
                 ...req.body,
+                id: uuidv4(),
             }
             allWarehouses.push(newWarehouse);
             fs.writeFile('./data/warehouses.json', JSON.stringify(allWarehouses), (err) => {
@@ -96,6 +98,6 @@ router.post('/', (req, res) => {
                 }
             })
         }
-    }) 
+    })
 })
 module.exports = router;
