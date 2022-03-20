@@ -87,6 +87,7 @@ router.get("/:id", (req, res) => {
     })
 })
 
+
 //DELETE warehouse by ID
 router.delete('/:id/delete', (req, res) => {
     fs.readFile("./data/warehouses.json", "utf8", (err, data) => {
@@ -102,5 +103,25 @@ router.delete('/:id/delete', (req, res) => {
     })
 })
 
+
+// PATCH edit warehouse item
+router.patch('/:id/edit', (req, res) =>{
+    fs.readFile("./data/warehouses.json", "utf8", (err, data) => {
+      if(err) {
+        res.send("warehouse does not exist")
+      } else {
+        const warehousesData = JSON.parse(data);
+        const updatedWarehouses = warehousesData.filter(item =>  item.id !== req.params.id);
+        const updatedItem = req.body;
+        updatedWarehouses.push(updatedItem);
+        fs.writeFile("./data/warehouses.json", JSON.stringify(updatedWarehouses), (err) => {
+          if (err) {
+            res.send("error updating item ")
+          }
+          res.send("item updated")
+        })
+      }
+    })
+  })
 
 module.exports = router;
