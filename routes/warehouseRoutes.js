@@ -48,6 +48,30 @@ router.get("/:id/inventory", (req, res) => {
         }
     })
 })
+// POST request to add new warehouse
+router.post('/add', (req, res) => {
+    fs.readFile("./data/warehouses.json", "utf8", (err, data) => {
+        if(err) {
+            res.send("error reading data");
+        } else{
+            const allWarehouses = JSON.parse(data);
+            const newWarehouse = {
+                id: uuidv4(),
+                ...req.body,
+               
+            }
+            allWarehouses.push(newWarehouse);
+            fs.writeFile('./data/warehouses.json', JSON.stringify(allWarehouses), (err) => {
+                if(err) {
+                    res.send("error writing data");
+                } else {
+                    res.json({ message: 'data written to file', data: newWarehouse});
+                }
+            })
+        }
+    })
+})
+
 // GET request to get a warehouse by an ID
 router.get("/:id", (req, res) => {
     fs.readFile('./data/warehouses.json', 'utf8', (err, data) => {
@@ -78,26 +102,5 @@ router.delete('/:id/delete', (req, res) => {
     })
 })
 
-// POST request to add new warehouse
-router.post('/', (req, res) => {
-    fs.readFile("./data/warehouses.json", "utf8", (err, data) => {
-        if(err) {
-            res.send("error reading data");
-        } else{
-            const allWarehouses = JSON.parse(data);
-            const newWarehouse = {
-                ...req.body,
-                id: uuidv4(),
-            }
-            allWarehouses.push(newWarehouse);
-            fs.writeFile('./data/warehouses.json', JSON.stringify(allWarehouses), (err) => {
-                if(err) {
-                    res.send("error writing data");
-                } else {
-                    res.json({ message: 'data written to file', data: newWarehouse});
-                }
-            })
-        }
-    })
-})
+
 module.exports = router;
