@@ -5,7 +5,7 @@ const PORT = process.env.PORT;
 
 
 
-
+// GET all inventory items
 router.get('', (req, res) => {
   fs.readFile('./data/inventories.json', 'utf8', (err, data) => {
       const inventoryData = JSON.parse(data);
@@ -47,7 +47,7 @@ router.delete('/:id/delete', (req, res) => {
 
   })
 })
-
+// PATCH edit inventory item
 router.patch('/:id/edit', (req, res) =>{
   fs.readFile("./data/inventories.json", "utf8", (err, data) => {
     if(err) {
@@ -60,7 +60,7 @@ router.patch('/:id/edit', (req, res) =>{
       fs.writeFile("./data/inventories.json", JSON.stringify(updatedInventory), (err) => {
         if (err) {
           res.send("error updating item ")
-        } 
+        }
         res.send("item updated")
       })
     }
