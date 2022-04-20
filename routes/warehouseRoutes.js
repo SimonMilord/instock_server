@@ -58,7 +58,7 @@ router.post('/add', (req, res) => {
             const newWarehouse = {
                 id: uuidv4(),
                 ...req.body,
-               
+
             }
             allWarehouses.push(newWarehouse);
             fs.writeFile('./data/warehouses.json', JSON.stringify(allWarehouses), (err) => {
@@ -102,6 +102,8 @@ router.delete('/:id/delete', (req, res) => {
         res.send("deleted")})
     })
 })
+
+// PATCH edit warehouse by ID
 
 
 // PATCH edit warehouse item
