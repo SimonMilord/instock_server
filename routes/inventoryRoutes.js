@@ -40,7 +40,7 @@ router.post("/add", (req, res) => {
         id: uuidv4(),
         ...req.body,
       };
-      allInventories.push(newInventoryItem);
+      allInventories.unshift(newInventoryItem);
       fs.writeFile(
         "./data/inventories.json",
         JSON.stringify(allInventories),
@@ -91,7 +91,7 @@ router.patch("/:id/edit", (req, res) => {
         (item) => item.id !== req.params.id
       );
       const updatedItem = req.body;
-      updatedInventory.push(updatedItem);
+      updatedInventory.unshift(updatedItem);
       fs.writeFile(
         "./data/inventories.json",
         JSON.stringify(updatedInventory),
